@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategic Market Research & Meta Advertising Blueprint — Metagenics</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root {
+    --primary: #0a3d2e;
+    --primary-light: #1a6b54;
+    --accent: #d4a574;
+    --accent-dark: #b88a5a;
+    --bg: #fafaf7;
+    --bg-card: #ffffff;
+    --text: #1a1a1a;
+    --text-muted: #5a5a5a;
+    --text-light: #8a8a8a;
+    --border: #e8e6e0;
+    --success: #2d8659;
+    --warning: #d4a574;
+    --danger: #c84a4a;
+    --shadow: 0 2px 12px rgba(10, 61, 46, 0.06);
+    --shadow-lg: 0 8px 32px rgba(10, 61, 46, 0.1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    padding: 80px 0 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: var(--bg);
+    transform: skewY(-2deg);
+    transform-origin: top left;
+  }
+  .hero-eyebrow {
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    max-width: 900px;
+  }
+  .hero-sub {
+    font-size: 19px;
+    color: rgba(255,255,255,0.85);
+    max-width: 760px;
+    margin-bottom: 36px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 28px;
+    max-width: 900px;
+  }
+  .hero-meta-item .label {
+    font-size: 11px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .hero-meta-item .value {
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  /* KPI strip */
+  .kpi-section {
+    margin-top: -40px;
+    position: relative;
+    z-index: 10;
+    margin-bottom: 80px;
+  }
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .kpi-card {
+    background: var(--bg-card);
+    padding: 28px 24px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    border-top: 3px solid var(--accent);
+  }
+  .kpi-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .kpi-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .kpi-detail {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  /* Sections */
+  section {
+    padding: 60px 0;
+  }
+  .section-eyebrow {
+    color: var(--accent-dark);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  h3 {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 14px;
+  }
+  h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .section-intro {
+    font-size: 17px;
+    color: var(--text-muted);
+    max-width: 820px;
+    margin-bottom: 48px;
+  }
+
+  p { margin-bottom: 14px; color: var(--text); }
+  p.muted { color: var(--text-muted); }
+
+  /* Cards */
+  .card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  /* Charts row */
+  .chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .chart-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+  .chart-card h3 {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+  .chart-card .chart-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+  .chart-wrap {
+    position: relative;
+    height: 300px;
+  }
+  .chart-wrap-tall {
+    position: relative;
+    height: 380px;
+  }
+
+  /* Table */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    background: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .data-table th {
+    background: var(--primary);
+    color: white;
+    text-align: left;
+    padding: 14px 18px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+  .data-table td {
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:nth-child(even) { background: #fbfaf6; }
+  .data-table .obj-name { font-weight: 600; color: var(--primary); }
+  .data-table .highlight { color: var(--accent-dark); font-weight: 700; }
+  .data-table .winner { background: rgba(45, 134, 89, 0.04); }
+  .data-table .winner td:first-child {
+    border-left: 3px solid var(--success);
+  }
+
+  /* ICP cards */
+  .icp-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .icp-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .icp-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--accent);
+  }
+  .icp-card.priority-1::before { background: var(--success); }
+  .icp-card.priority-2::before { background: var(--accent); }
+  .icp-card.priority-3::before { background: var(--primary-light); }
+
+  .icp-priority {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+  }
+  .priority-1 .icp-priority { background: rgba(45, 134, 89, 0.1); color: var(--success); }
+  .priority-2 .icp-priority { background: rgba(212, 165, 116, 0.15); color: var(--accent-dark); }
+  .priority-3 .icp-priority { background: rgba(26, 107, 84, 0.1); color: var(--primary-light); }
+
+  .icp-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+  }
+  .icp-roles {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+    font-style: italic;
+  }
+  .icp-section {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .icp-section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .icp-section p {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.55;
+  }
+
+  /* Two col layout */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .three-col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  /* Quote / VOC */
+  .voc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .voc-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .voc-card h4 {
+    color: var(--primary);
+    margin-bottom: 16px;
+    font-size: 13px;
+  }
+  .voc-card.positive { border-left: 4px solid var(--success); }
+  .voc-card.negative { border-left: 4px solid var(--danger); }
+  .voc-quote {
+    font-style: italic;
+    color: var(--text);
+    padding: 10px 0 10px 16px;
+    border-left: 2px solid var(--border);
+    margin-bottom: 12px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .voc-card.positive .voc-quote { border-left-color: var(--success); }
+  .voc-card.negative .voc-quote { border-left-color: var(--danger); }
+
+  /* Sticky words */
+  .word-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .word-tag {
+    background: var(--primary);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .word-tag.accent { background: var(--accent-dark); }
+  .word-tag.light { background: var(--bg-card); color: var(--primary); border: 1px solid var(--primary); }
+
+  /* Competitor table */
+  .comp-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .comp-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+  .comp-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 6px;
+  }
+  .comp-position {
+    font-size: 13px;
+    color: var(--accent-dark);
+    font-weight: 600;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .comp-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .comp-row .label {
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding-top: 2px;
+  }
+  .comp-row .value {
+    color: var(--text);
+    line-height: 1.55;
+  }
+  .gap-highlight {
+    background: rgba(212, 165, 116, 0.1);
+    border-left: 3px solid var(--accent);
+    padding: 12px 14px;
+    margin-top: 14px;
+    border-radius: 0 6px 6px 0;
+    font-size: 13px;
+    color: var(--text);
+  }
+
+  /* Before/After */
+  .ba-grid {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    gap: 20px;
+    align-items: stretch;
+    margin-top: 24px;
+  }
+  .ba-card {
+    padding: 28px;
+    border-radius: 12px;
+  }
+  .ba-before {
+    background: #faf5f0;
+    border: 1px solid #e8d9c8;
+  }
+  .ba-after {
+    background: #f0f7f3;
+    border: 1px solid #c8e0d2;
+  }
+  .ba-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: var(--accent);
+  }
+  .ba-card h4 {
+    font-size: 13px;
+    margin-bottom: 14px;
+  }
+  .ba-before h4 { color: var(--danger); }
+  .ba-after h4 { color: var(--success); }
+
+  /* Objections */
+  .obj-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .obj-item {
+    background: var(--bg-card);
+    border-radius: 10px;
+    padding: 20px 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 20px;
+  }
+  .obj-type {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding-top: 2px;
+  }
+  .obj-q {
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 6px;
+    font-size: 15px;
+  }
+  .obj-a {
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .obj-proof {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border);
+  }
+
+  /* Strategy synthesis */
+  .strategy-banner {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    padding: 48px;
+    border-radius: 16px;
+    margin: 40px 0;
+  }
+  .strategy-banner h3 {
+    color: white;
+    font-size: 26px;
+    margin-bottom: 16px;
+  }
+  .strategy-banner p {
+    color: rgba(255,255,255,0.92);
+    font-size: 17px;
+    line-height: 1.7;
+  }
+
+  /* Pillars */
+  .pillar-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .pillar {
+    background: var(--bg-card);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .pillar-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .pillar-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .pillar-text {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--primary);
+    color: rgba(255,255,255,0.7);
+    padding: 40px 0;
+    text-align: center;
+    font-size: 13px;
+    margin-top: 80px;
+  }
+  footer strong { color: white; }
+
+  /* Trigger boxes */
+  .trigger-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .trigger-box {
+    background: var(--bg-card);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+  }
+  .trigger-title {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  .trigger-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  /* Negative personas */
+  .neg-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .neg-card {
+    background: #faf3f3;
+    border: 1px solid #e6d4d4;
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .neg-card h4 {
+    color: var(--danger);
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+  .neg-card p {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .hero h1 { font-size: 32px; }
+    .kpi-grid { grid-template-columns: 1fr 1fr; }
+    .chart-grid, .two-col, .icp-grid, .comp-grid, .three-col, .voc-grid, .neg-grid { grid-template-columns: 1fr; }
+    .pillar-grid { grid-template-columns: 1fr 1fr; }
+    .ba-grid { grid-template-columns: 1fr; }
+    .ba-arrow { transform: rotate(90deg); padding: 10px; }
+    .obj-item { grid-template-columns: 1fr; }
+    .trigger-grid { grid-template-columns: 1fr; }
+    .container { padding: 0 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">Strategic Blueprint · 90-Day Campaign</div>
+    <h1>Healthcare Professional Engagement for Metagenics</h1>
+    <p class="hero-sub">A precision Meta advertising strategy for reaching 31,958 verified Healthcare Professionals — engineered for the unique economics of high-friction B2B media buying.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="label">Audience</div>
+        <div class="value">31,958 HCPs</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="label">Total Budget</div>
+        <div class="value">$150,000</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="label">Duration</div>
+        <div class="value">90 Days</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="label">Data Tax CPM</div>
+        <div class="value">$35.00</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KPI STRIP -->
+<div class="container kpi-section">
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Total Impressions</div>
+      <div class="kpi-value">~2.0M</div>
+      <div class="kpi-detail">At blended $75 CPM</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Est. Reach</div>
+      <div class="kpi-value">27,164</div>
+      <div class="kpi-detail">85% of matched list</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Frequency / User</div>
+      <div class="kpi-value">73.6</div>
+      <div class="kpi-detail">≈0.81 impressions/day</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Creative Angles</div>
+      <div class="kpi-value">10–12</div>
+      <div class="kpi-detail">Required to prevent fatigue</div>
+    </div>
+  </div>
+</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<section>
+  <div class="container">
+    <div class="section-eyebrow">Executive Summary</div>
+    <h2>The Economics of a Restricted B2B Audience</h2>
+    <p class="section-intro">The campaign operates at the intersection of clinical rigor and sophisticated B2B marketing. With an exact-match custom audience of 31,958 HCPs and a structural $35 data-vendor CPM, every dollar must be modeled against the blended cost of reaching this scarce inventory.</p>
+
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h3>Budget Allocation Model</h3>
+        <div class="chart-sub">How the $150,000 splits between media and data costs</div>
+        <div class="chart-wrap">
+          <canvas id="budgetChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3>Blended CPM by Campaign Objective</h3>
+        <div class="chart-sub">Media CPM + fixed $35 data tax</div>
+        <div class="chart-wrap">
+          <canvas id="cpmChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 40px;">Meta Campaign Performance Projections</h3>
+    <p class="muted" style="margin-bottom: 16px;">Three distinct campaign objectives modeled across the 31,958-person cohort. Lead Generation (on-platform) delivers the strongest economics due to native instant-form friction reduction.</p>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Campaign Objective</th>
+          <th>Media CPM</th>
+          <th>Data Fee CPM</th>
+          <th>Blended CPM</th>
+          <th>Est. CPC</th>
+          <th>Est. CTR</th>
+          <th>Conv. Rate</th>
+          <th>Est. CPL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="obj-name">Brand Awareness / Reach</td>
+          <td>$25.00</td>
+          <td>$35.00</td>
+          <td class="highlight">$60.00</td>
+          <td>$5.45</td>
+          <td>1.10%</td>
+          <td>N/A</td>
+          <td>N/A</td>
+        </tr>
+        <tr>
+          <td class="obj-name">Traffic (Link Clicks)</td>
+          <td>$35.00</td>
+          <td>$35.00</td>
+          <td class="highlight">$70.00</td>
+          <td>$4.82</td>
+          <td>1.45%</td>
+          <td>2.84%</td>
+          <td>$169.00</td>
+        </tr>
+        <tr class="winner">
+          <td class="obj-name">Lead Generation (On-Platform) ★</td>
+          <td>$55.00</td>
+          <td>$35.00</td>
+          <td class="highlight">$90.00</td>
+          <td>$4.28</td>
+          <td>2.10%</td>
+          <td>7.72%</td>
+          <td>$55.44 – $61.16</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="chart-grid" style="margin-top: 32px;">
+      <div class="chart-card">
+        <h3>Conversion Rate by Objective</h3>
+        <div class="chart-sub">Lead Gen wins on native instant-form friction</div>
+        <div class="chart-wrap">
+          <canvas id="conversionChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3>Cost Per Lead Comparison</h3>
+        <div class="chart-sub">Why off-platform traffic loses the cost battle</div>
+        <div class="chart-wrap">
+          <canvas id="cplChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE & ICPs -->
+<section style="background: linear-gradient(180deg, var(--bg) 0%, #f3f1ea 100%);">
+  <div class="container">
+    <div class="section-eyebrow">Target Audience</div>
+    <h2>Three Ideal Customer Profiles</h2>
+    <p class="section-intro">The professional-grade supplement market relies on the trust, clinical judgment, and prescribing power of healthcare providers. Within the matched list of 31,958 practitioners, three distinct ICPs emerge — ranked by likelihood of converting from Meta Ads to active Metagenics advocates.</p>
+
+    <div class="chart-grid" style="margin-bottom: 40px;">
+      <div class="chart-card">
+        <h3>ICP Priority Ranking</h3>
+        <div class="chart-sub">Conversion likelihood × Lifetime Value</div>
+        <div class="chart-wrap">
+          <canvas id="icpPriorityChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3>ICP Sophistication Matrix</h3>
+        <div class="chart-sub">Product awareness vs. category sophistication</div>
+        <div class="chart-wrap">
+          <canvas id="sophChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="icp-grid">
+      <!-- ICP 1 -->
+      <div class="icp-card priority-1">
+        <div class="icp-priority">Priority 1 · Highest LTV</div>
+        <div class="icp-title">The Functional & Integrative Medicine Practitioner</div>
+        <div class="icp-roles">NDs · DOs · Functional MDs · Ages 35–55</div>
+        <p>Views allopathic medicine as incomplete, prioritizes root-cause resolution, and runs cash-pay or concierge practices. Fiercely protective of clinical independence and favors brands with practitioner-first culture.</p>
+
+        <div class="icp-section">
+          <div class="icp-section-label">Awareness · Sophistication</div>
+          <p><strong>Product Aware</strong> · High Sophistication</p>
+        </div>
+        <div class="icp-section">
+          <div class="icp-section-label">Stops Their Scroll</div>
+          <p>Deep-dive educational carousels, clinical case studies, expert-led webinars on epigenetics, mitochondrial ATP, microbiome keystone strains.</p>
+        </div>
+        <div class="icp-section">
+          <div class="icp-section-label">Lexicon</div>
+          <p>"Bioavailability," "methylation pathways," "microbiome restoration," "cellular health."</p>
+        </div>
+        <div class="icp-section">
+          <div class="icp-section-label">Strategic Lead</div>
+          <p>Lead with mechanism of action. Long-form copy, peer-to-peer tone, robust citations.</p>
+        </div>
+      </div>
+
+      <!-- ICP 2 -->
+      <div class="icp-card priority-2">
+        <div class="icp-priority">Priority 2 · Highest Volume</div>
+        <div class="icp-title">The Conventional but Forward-Thinking Specialist</div>
+        <div class="icp-roles">MDs · Rheumatologists · Gastros · GPs · OB/GYNs · 45–65</div>
+        <p>Overwhelmed by patient volume, billing constraints, and administrative burden. Increasingly seeking adjunct therapies where pharmaceuticals fall short. Primary anxiety: drug-nutrient interactions and liability.</p>
+
+        <div class="icp-section">
+          <div class="icp-section-label">Awareness · Sophistication</div>
+          <p><strong>Problem Aware</strong> · Low–Medium Sophistication</p>
+        </div>
+        <div class="icp-section">
+          <div class="icp-section-label">Stops Their Scroll</div>
+          <p>Video that delivers the clinical bottom line in 3 seconds. Doximity/Sermo-style evidence summaries.</p>
+        </div>
+        <div class="icp-section">
+          <div class="icp-section-label">Lexicon</div>
+          <p>"Evidence-based," "drug-nutrient safety," "the bottom line," "contraindications."</p>
+        </div>
+        <div class="icp-section">
+          <div class="icp-section-label">Strategic Lead</div>
+          <p>Lead with the Problem (unsafe retail supplements) → introduce as the safe, #1 Doctor Recommended alternative.</p>
+        </div>
+      </div>
+
+      <!-- ICP 3 -->
+      <div class="icp-card priority-3">
+        <div class="icp-priority">Priority 3 · Highest Engagement</div>
+        <div class="icp-title">The Allied Health Professional</div>
+        <div class="icp-roles">NPs · RDs · Clinical Pharmacists · Ages 28–50</div>
+        <p>Focused on daily, practical application of nutritional therapy. Highly active on Instagram and Meta. Loves curated bundles (PracStacks) and holistic solutions like HerWellness that remove friction for patients.</p>
+
+        <div class="icp-section">
+          <div class="icp-section-label">Awareness · Sophistication</div>
+          <p><strong>Solution Aware</strong> · Moderately Sophisticated</p>
+        </div>
+        <div class="icp-section">
+          <div class="icp-section-label">Stops Their Scroll</div>
+          <p>Aesthetically pleasing UGC styles, medium-form content bridging science and daily lifestyle.</p>
+        </div>
+        <div class="icp-section">
+          <div class="icp-section-label">Lexicon</div>
+          <p>"Daily vitality," "tangible relief," "lifestyle integration," "whole person."</p>
+        </div>
+        <div class="icp-section">
+          <div class="icp-section-label">Strategic Lead</div>
+          <p>Lead with transformation and ease of integration. Showcase PracStack simplicity.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Negative personas -->
+    <div style="margin-top: 56px;">
+      <h3>Negative Personas — Filter Out Before They Click</h3>
+      <p class="muted">Even within a custom audience, ad copy must utilize exclusionary framing to protect the budget from unqualified clicks. Phrases like <em>"For Licensed Clinical Use,"</em> <em>"Elevate Your Medical Practice,"</em> and <em>"Practitioner-Exclusive Virtual Dispensaries"</em> serve as psychological barriers.</p>
+      <div class="neg-grid">
+        <div class="neg-card">
+          <h4>The Uncredentialed Hobbyist</h4>
+          <p>Fitness influencers and self-proclaimed "health coaches" who lack prescribing authority and frequently churn.</p>
+        </div>
+        <div class="neg-card">
+          <h4>The Deal-Hunter</h4>
+          <p>Bulk-supplement scourers who drain customer service complaining about premium pricing on clinical-grade products.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOC -->
+<section>
+  <div class="container">
+    <div class="section-eyebrow">Voice of Customer</div>
+    <h2>Language Mining: What Practitioners Actually Say</h2>
+    <p class="section-intro">To construct compelling ad copy, the campaign must deploy the exact lexicon practitioners use when discussing their clinical triumphs and administrative nightmares.</p>
+
+    <div class="voc-grid">
+      <div class="voc-card positive">
+        <h4>Why They Buy · Results Language</h4>
+        <div class="voc-quote">"Provides fantastic protocols for everything imaginable."</div>
+        <div class="voc-quote">"I know I can trust that the ingredients are exactly what I prescribe."</div>
+        <div class="voc-quote">"Superlative manufacturing standards and unquestionable integrity."</div>
+        <div class="voc-quote">"Saves administrative time while increasing patient compliance."</div>
+        <div class="voc-quote">"Allows me to focus on root causes and treat the whole patient."</div>
+      </div>
+      <div class="voc-card negative">
+        <h4>Frustrations · Pre-Purchase Pain</h4>
+        <div class="voc-quote">"I see abnormal lab values and adverse events related to my patients taking cheap retail supplements."</div>
+        <div class="voc-quote">"Patients assume supplements are safe just because they are available without a prescription."</div>
+        <div class="voc-quote">"I am overwhelmed by the administrative burden of carrying physical inventory in my clinic."</div>
+        <div class="voc-quote">"Retail brands use poorly absorbed forms of vitamins, like cyanocobalamin, instead of methylcobalamin."</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 48px;">
+      <h3>Sticky Words to Deploy in Creative</h3>
+      <p class="muted">The vocabulary that signals clinical credibility and stops the scroll for HCPs.</p>
+      <div class="word-cloud">
+        <span class="word-tag">Bioavailability</span>
+        <span class="word-tag accent">Third-party tested</span>
+        <span class="word-tag">cGMP compliant</span>
+        <span class="word-tag accent">Excipients & binders</span>
+        <span class="word-tag">Drug-nutrient interaction</span>
+        <span class="word-tag accent">Patient compliance</span>
+        <span class="word-tag">Clinical efficacy</span>
+        <span class="word-tag accent">Evidence-based formulation</span>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px;">
+      <h3>Powerful Phrases — Sample Headlines</h3>
+      <div class="three-col" style="margin-top: 20px;">
+        <div class="trigger-box">
+          <div class="trigger-title">"Science you can feel."</div>
+          <div class="trigger-desc">The flagship brand promise — bridges elite science with tangible patient outcomes.</div>
+        </div>
+        <div class="trigger-box">
+          <div class="trigger-title">"Stop guessing with generic protocols."</div>
+          <div class="trigger-desc">Direct challenge to the practitioner's current approach.</div>
+        </div>
+        <div class="trigger-box">
+          <div class="trigger-title">"Protect your practice from the liability of retail supplements."</div>
+          <div class="trigger-desc">Risk-mitigation framing for the conventional MD audience.</div>
+        </div>
+        <div class="trigger-box">
+          <div class="trigger-title">"Turnkey clinical integration without the inventory headache."</div>
+          <div class="trigger-desc">Operational relief for overwhelmed practices.</div>
+        </div>
+        <div class="trigger-box">
+          <div class="trigger-title">"Measurable shifts in patient lab markers."</div>
+          <div class="trigger-desc">Outcomes language that resonates with the functional medicine ICP.</div>
+        </div>
+        <div class="trigger-box">
+          <div class="trigger-title">"For Licensed Clinical Use."</div>
+          <div class="trigger-desc">Exclusionary filtering that gatekeeps the creative.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOTIVATIONS & TRIGGERS -->
+<section style="background: linear-gradient(180deg, var(--bg) 0%, #f3f1ea 100%);">
+  <div class="container">
+    <div class="section-eyebrow">Customer Motivations</div>
+    <h2>Why Practitioners Switch Supplement Providers</h2>
+    <p class="section-intro">Understanding the psychological catalyst that prompts a physician to switch providers is critical for constructing high-converting ad hooks.</p>
+
+    <h3>Three Purchase Trigger Moments</h3>
+    <div class="trigger-grid" style="margin-top: 20px;">
+      <div class="trigger-box">
+        <div class="trigger-title">The Adverse Event Trigger</div>
+        <div class="trigger-desc">A practitioner encounters a patient suffering from drug-nutrient interaction or GI distress from a low-quality retail supplement, prompting an urgent search for a safe alternative.</div>
+      </div>
+      <div class="trigger-box">
+        <div class="trigger-title">The Compliance Failure Trigger</div>
+        <div class="trigger-desc">A patient fails to improve because they won't take 12 pills a day. The practitioner searches for consolidated formulas like PracStacks that simplify the regimen.</div>
+      </div>
+      <div class="trigger-box">
+        <div class="trigger-title">The Administrative Breaking Point</div>
+        <div class="trigger-desc">The office manager expresses frustration over expired physical inventory and the unbillable hours consumed by manually fulfilling patient supplement orders.</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 56px;">Before · After Transformation</h3>
+    <p class="muted">The emotional distance the campaign must bridge — from chronic professional anxiety to clinical confidence and operational elegance.</p>
+
+    <div class="ba-grid">
+      <div class="ba-card ba-before">
+        <h4>BEFORE STATE</h4>
+        <p>The practitioner is frustrated by unpredictable patient outcomes. They spend unbillable hours researching individual ingredients to ensure they don't interact with prescriptions. The clinic feels cluttered with physical supplement bottles tying up capital in expiring inventory.</p>
+        <p>They experience baseline anxiety knowing their patients are likely purchasing counterfeit or adulterated products from unauthorized third-party sellers. It is a state of <strong>administrative bloat and clinical uncertainty</strong>.</p>
+      </div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-card ba-after">
+        <h4>AFTER STATE</h4>
+        <p>The practitioner feels secure, empowered, and efficient. They prescribe a comprehensive, curated protocol (HerWellness, a gut-health PracStack) with a single click through a virtual portal.</p>
+        <p>They have absolute confidence that the capsule dissolves properly, absorbs efficiently, and contains exactly what the label claims. Patient retention improves as clinical outcomes stabilize, and the practice generates reliable secondary revenue without managing physical stock. <strong>Clinical confidence, medical authority, and operational elegance.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIONS -->
+<section>
+  <div class="container">
+    <div class="section-eyebrow">Customer Objections</div>
+    <h2>Dismantling the Three Risk Categories</h2>
+    <p class="section-intro">Despite the clear clinical benefits, capturing a new HCP account requires overcoming deeply ingrained clinical skepticism. Meta ads must preemptively dismantle these objections in-creative.</p>
+
+    <div class="obj-list">
+      <div class="obj-item">
+        <div class="obj-type">Functional Risk</div>
+        <div>
+          <div class="obj-q">"Will this actually work better than what I currently prescribe?"</div>
+          <div class="obj-a">Highlight "Science you can feel" methodology. Cite specific use of highly absorbable forms (Magnesium Glycinate over Oxide) and patented strains in UltraFlora.</div>
+          <div class="obj-proof"><strong>Proof Required:</strong> Clinical trial summaries · White papers · #1 Doctor Recommended brand status</div>
+        </div>
+      </div>
+      <div class="obj-item">
+        <div class="obj-type">Financial · Operational</div>
+        <div>
+          <div class="obj-q">"Is the onboarding process going to disrupt my practice or require massive upfront inventory?"</div>
+          <div class="obj-a">Emphasize the free sampling kit to remove all financial friction. Promote the virtual dispensary model that requires zero inventory.</div>
+          <div class="obj-proof"><strong>Proof Required:</strong> Seamless sample request landing page · Pre-curated PracStacks</div>
+        </div>
+      </div>
+      <div class="obj-item">
+        <div class="obj-type">Psychological · Reputational</div>
+        <div>
+          <div class="obj-q">"If a patient has a bad reaction to this new brand, it reflects poorly on my medical judgment."</div>
+          <div class="obj-a">Lead with manufacturing transparency. Highly controlled facilities, rigorous third-party testing, free from harmful excipients.</div>
+          <div class="obj-proof"><strong>Proof Required:</strong> ISO-certified lab testing · NSF certifications · B-Corp status · 60-Day Satisfaction Guarantee</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-grid" style="margin-top: 56px;">
+      <div class="chart-card">
+        <h3>Trust & Proof Hierarchy</h3>
+        <div class="chart-sub">Relative weighting for this sophisticated audience</div>
+        <div class="chart-wrap">
+          <canvas id="proofChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3>Metagenics Proof Asset Inventory</h3>
+        <div class="chart-sub">The certifications, endorsements, and risk reversals available to deploy in creative</div>
+        <div style="padding: 16px 0;">
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border);">
+            <div style="width:32px;height:32px;background:var(--success);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">1</div>
+            <div><strong>#1 Doctor Recommended</strong><div style="font-size:13px;color:var(--text-muted);">2024 independent US survey data</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border);">
+            <div style="width:32px;height:32px;background:var(--success);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">2</div>
+            <div><strong>B-Corp Certification</strong><div style="font-size:13px;color:var(--text-muted);">Highest environmental and social impact standards</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border);">
+            <div style="width:32px;height:32px;background:var(--success);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">3</div>
+            <div><strong>Practicing MD & ND Endorsements</strong><div style="font-size:13px;color:var(--text-muted);">Dr. Patricia Guevara · Dr. Jen Stagg</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border);">
+            <div style="width:32px;height:32px;background:var(--success);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">4</div>
+            <div><strong>60-Day Satisfaction Guarantee</strong><div style="font-size:13px;color:var(--text-muted);">Risk reversal for patients</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:14px 0;">
+            <div style="width:32px;height:32px;background:var(--success);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">5</div>
+            <div><strong>Free HCP Sampling Kit Program</strong><div style="font-size:13px;color:var(--text-muted);">Risk-free clinical evaluation</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPETITIVE LANDSCAPE -->
+<section style="background: linear-gradient(180deg, var(--bg) 0%, #f3f1ea 100%);">
+  <div class="container">
+    <div class="section-eyebrow">Competitive Landscape</div>
+    <h2>The Four Direct HCP Competitors</h2>
+    <p class="section-intro">To capture share from the 31,958 matched HCPs, the campaign must aggressively exploit the messaging gaps of direct competitors. Metagenics sits perfectly in the center of this matrix — bridging hyper-academic and sports-centric positioning with practical, doctor-curated solutions.</p>
+
+    <div class="comp-grid">
+      <div class="comp-card">
+        <div class="comp-name">Pure Encapsulations</div>
+        <div class="comp-position">"The Pure Difference"</div>
+        <div class="comp-row">
+          <div class="label">Strength</div>
+          <div class="value">Hyper-focused on hypoallergenic, "FREE FROM" formulations. PureInsight platform and Drug-Nutrient Interaction Checker drive trust among practitioners treating autoimmune and chronically ill patients.</div>
+        </div>
+        <div class="gap-highlight">
+          <strong>Gap to Exploit:</strong> Their messaging is fundamentally defensive (focused on what is <em>not</em> in the product). Opening for Metagenics to take an offensive, results-driven stance focused on tangible vitality.
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-name">Thorne</div>
+        <div class="comp-position">Clinical Performance & Longevity</div>
+        <div class="comp-row">
+          <div class="label">Strength</div>
+          <div class="value">Mayo Clinic and UFC partnerships, 4-round testing, NSF Certified for Sport badges. Unmatched in sports performance and longevity. Excellent digital dispensaries.</div>
+        </div>
+        <div class="gap-highlight">
+          <strong>Gap to Exploit:</strong> Intense sports-performance association alienates practitioners in internal medicine, geriatrics, or women's health. HerWellness and UltraFlora offer a softer, more universally applicable clinical approach.
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-name">Designs for Health (DFH)</div>
+        <div class="comp-position">"Science First"</div>
+        <div class="comp-row">
+          <div class="label">Strength</div>
+          <div class="value">Claims #1 practitioner brand in functional medicine surveys. Cutting-edge microbiome science (Keystone Commensals, HACK index). Deeply embedded in functional medicine education.</div>
+        </div>
+        <div class="gap-highlight">
+          <strong>Gap to Exploit:</strong> Highly technical, academic focus is intimidating for conventional MDs seeking simple, compliant solutions. PracStacks offer a much simpler "turnkey" alternative than DFH's granular approach.
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-name">Xymogen</div>
+        <div class="comp-position">Exclusive Distribution & Practice Protection</div>
+        <div class="comp-row">
+          <div class="label">Strength</div>
+          <div class="value">Explicitly refuses to sell on retail platforms — ensuring practitioners keep their margins. Deep loyalty from those terrified of Amazon cannibalization. Private labeling and MedPax daily packs.</div>
+        </div>
+        <div class="gap-highlight">
+          <strong>Gap to Exploit:</strong> High barrier to entry with rigid models. Metagenics can position as equally professional but far more accessible and patient-friendly.
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-card" style="margin-top: 40px;">
+      <h3>Competitive Positioning Map</h3>
+      <div class="chart-sub">Where Metagenics wins: bridging clinical depth with practical, broadly applicable solutions</div>
+      <div class="chart-wrap-tall">
+        <canvas id="competitorMap"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAILED SOLUTIONS / NEW MECHANISM -->
+<section>
+  <div class="container">
+    <div class="section-eyebrow">Failed Solutions & New Mechanism</div>
+    <h2>The Patient Supplement Problem</h2>
+    <p class="section-intro">To deploy "New Mechanism" positioning, the campaign must address why previous solutions failed the practitioner.</p>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Traditional Mass Brands</h3>
+        <p class="muted" style="margin-bottom: 14px;"><strong>Nature Made · Centrum</strong></p>
+        <p>Cheap, synthetic vitamin forms (cyanocobalamin instead of methylcobalamin; calcium carbonate instead of calcium citrate) with exceedingly poor bioavailability. Laden with titanium dioxide, artificial colorings, and binders like magnesium stearate that inhibit absorption and cause GI distress.</p>
+      </div>
+      <div class="card">
+        <h3>Modern DTC Brands</h3>
+        <p class="muted" style="margin-bottom: 14px;"><strong>Seed · Ritual</strong></p>
+        <p>Sleek aesthetics and transparency claims, but aggressively market <em>directly to the patient</em> — deliberately bypassing the practitioner's clinical oversight. This undermines the physician-patient relationship and prevents HCPs from managing comprehensive, integrated care protocols.</p>
+      </div>
+    </div>
+
+    <div class="strategy-banner">
+      <h3>The New Mechanism: Clinical-Grade Synergy</h3>
+      <p>The unique mechanism Metagenics offers is <strong>clinical-grade synergy combined with practitioner empowerment</strong>. The "new mechanism" is the <strong>PracStack</strong> — removing the guesswork of combining single ingredients by offering synergistic, doctor-curated bundles that target exact physiological pathways (cellular health via PhytoMulti + OmegaGenics).</p>
+      <p style="margin-top: 12px;">By providing these formulations exclusively through the HCP channel, Metagenics empowers the practitioner to reclaim their clinical authority while patients benefit from "Science you can feel."</p>
+    </div>
+  </div>
+</section>
+
+<!-- STRATEGIC SYNTHESIS -->
+<section style="background: linear-gradient(180deg, var(--bg) 0%, #f3f1ea 100%);">
+  <div class="container">
+    <div class="section-eyebrow">Strategic Synthesis</div>
+    <h2>The Winning Ad Strategy</h2>
+    <p class="section-intro">Given the fixed data tax and tightly capped audience size, the campaign must utilize a sequential, multi-touch retargeting framework to prevent ad fatigue while driving the audience toward the sample request form.</p>
+
+    <div class="pillar-grid">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <div class="pillar-title">Lead With</div>
+        <div class="pillar-text">The <strong>Problem</strong> (patient non-compliance and poor retail quality) followed immediately by the <strong>Proof</strong> (#1 Doctor Recommended).</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <div class="pillar-title">Earn the Click</div>
+        <div class="pillar-text">Do not try to close a wholesale order. Earn the click to the <strong>Free Sample Request</strong> landing page → enter an email nurturing sequence.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <div class="pillar-title">Top Objection</div>
+        <div class="pillar-text">"Is this worth the hassle of switching my current protocols?" → Counter with PracStacks + guaranteed bioavailability = saved research hours.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">04</div>
+        <div class="pillar-title">Strongest Proof</div>
+        <div class="pillar-text">B-Corp certification + 60-day guarantee + "#1 Doctor Recommended" 2024 survey data combined.</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 56px;">
+      <h3>Seasonal & Timing Levers</h3>
+      <div class="two-col" style="margin-top: 20px;">
+        <div class="card">
+          <h4>High-Intent Windows</h4>
+          <p><strong>Q1 spans:</strong> Pivot to patient resolutions, detoxification (CandiBactin-BR), metabolic resets.</p>
+          <p><strong>Q4 spans:</strong> Focus on immune support (Vitamin D3 5000 + K) and stress management (MagActive) to combat holiday clinical fatigue.</p>
+        </div>
+        <div class="card">
+          <h4>Optimal Ad Delivery Schedule</h4>
+          <p>HCPs rarely browse Meta during peak clinic hours (9 AM – 4 PM). Optimize for:</p>
+          <p><strong>· Early morning commutes</strong> (6:00–8:00 AM)<br>
+             <strong>· Late evening wind-downs</strong> (7:00–10:00 PM)<br>
+             <strong>· Weekends</strong> when bandwidth is highest</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <strong>Metagenics · Strategic Meta Advertising Blueprint</strong>
+    <div style="margin-top: 8px;">90-Day HCP Engagement Campaign · 31,958 Verified Healthcare Professionals · $150,000 Budget</div>
+    <div style="margin-top: 16px; font-size: 11px; opacity: 0.6;">Data synthesized from 2025/2026 healthcare industry benchmarks (AdAmigo, Mesha AI, Superads, Improvado) and Metagenics, Pure Encapsulations, Thorne, Designs for Health, and Xymogen brand intelligence.</div>
+  </div>
+</footer>
+
+<script>
+  // Shared chart defaults
+  Chart.defaults.font.family = "'Segoe UI', -apple-system, sans-serif";
+  Chart.defaults.color = '#5a5a5a';
+  Chart.defaults.font.size = 12;
+
+  const colors = {
+    primary: '#0a3d2e',
+    primaryLight: '#1a6b54',
+    accent: '#d4a574',
+    accentDark: '#b88a5a',
+    success: '#2d8659',
+    danger: '#c84a4a',
+    muted: '#8a8a8a'
+  };
+
+  // 1. Budget Donut
+  new Chart(document.getElementById('budgetChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Media Spend (Meta)', 'Data Vendor Tax (CPM)'],
+      datasets: [{
+        data: [70000, 80000],
+        backgroundColor: [colors.primary, colors.accent],
+        borderWidth: 0,
+        hoverOffset: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '65%',
+      plugins: {
+        legend: { position: 'bottom', labels: { padding: 16, usePointStyle: true, pointStyle: 'circle' } },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => ctx.label + ': $' + ctx.parsed.toLocaleString() + ' (' + Math.round(ctx.parsed/150000*100) + '%)'
+          }
+        }
+      }
+    }
+  });
+
+  // 2. CPM Comparison Stacked Bar
+  new Chart(document.getElementById('cpmChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Brand Awareness', 'Traffic', 'Lead Generation'],
+      datasets: [
+        {
+          label: 'Media CPM',
+          data: [25, 35, 55],
+          backgroundColor: colors.primary,
+          borderRadius: 4
+        },
+        {
+          label: 'Data Tax CPM',
+          data: [35, 35, 35],
+          backgroundColor: colors.accent,
+          borderRadius: 4
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: { stacked: true, grid: { display: false } },
+        y: { stacked: true, ticks: { callback: (v) => '$' + v }, grid: { color: '#eee' } }
+      },
+      plugins: {
+        legend: { position: 'bottom', labels: { usePointStyle: true, pointStyle: 'circle', padding: 16 } },
+        tooltip: { callbacks: { label: (c) => c.dataset.label + ': $' + c.parsed.y } }
+      }
+    }
+  });
+
+  // 3. Conversion Rate
+  new Chart(document.getElementById('conversionChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Traffic (Link Clicks)', 'Lead Generation (On-Platform)'],
+      datasets: [{
+        label: 'Conversion Rate',
+        data: [2.84, 7.72],
+        backgroundColor: [colors.accent, colors.success],
+        borderRadius: 6
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: { ticks: { callback: (v) => v + '%' }, grid: { color: '#eee' } },
+        y: { grid: { display: false } }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (c) => 'Conv. Rate: ' + c.parsed.x + '%' } }
+      }
+    }
+  });
+
+  // 4. CPL Comparison
+  new Chart(document.getElementById('cplChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Traffic (Off-Platform)', 'Lead Gen (On-Platform)'],
+      datasets: [{
+        label: 'Cost Per Lead',
+        data: [169, 58.30],
+        backgroundColor: [colors.danger, colors.success],
+        borderRadius: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: { ticks: { callback: (v) => '$' + v }, grid: { color: '#eee' } },
+        x: { grid: { display: false } }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (c) => 'Avg. CPL: $' + c.parsed.y } }
+      }
+    }
+  });
+
+  // 5. ICP Priority - Radar
+  new Chart(document.getElementById('icpPriorityChart'), {
+    type: 'radar',
+    data: {
+      labels: ['Purchase Intent', 'Lifetime Value', 'Meta Engagement', 'Prescribing Authority', 'Scalability'],
+      datasets: [
+        {
+          label: 'Functional Medicine (P1)',
+          data: [9.5, 9.5, 7, 9, 9],
+          borderColor: colors.success,
+          backgroundColor: 'rgba(45, 134, 89, 0.15)',
+          borderWidth: 2,
+          pointBackgroundColor: colors.success
+        },
+        {
+          label: 'Conventional MD (P2)',
+          data: [6.5, 9, 5.5, 10, 9.5],
+          borderColor: colors.accent,
+          backgroundColor: 'rgba(212, 165, 116, 0.15)',
+          borderWidth: 2,
+          pointBackgroundColor: colors.accent
+        },
+        {
+          label: 'Allied Health (P3)',
+          data: [7, 6, 9, 6, 6.5],
+          borderColor: colors.primaryLight,
+          backgroundColor: 'rgba(26, 107, 84, 0.15)',
+          borderWidth: 2,
+          pointBackgroundColor: colors.primaryLight
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        r: {
+          min: 0, max: 10,
+          ticks: { display: false, stepSize: 2 },
+          pointLabels: { font: { size: 11 } }
+        }
+      },
+      plugins: {
+        legend: { position: 'bottom', labels: { usePointStyle: true, pointStyle: 'circle', padding: 14, font: { size: 11 } } }
+      }
+    }
+  });
+
+  // 6. Sophistication Matrix - Scatter
+  new Chart(document.getElementById('sophChart'), {
+    type: 'scatter',
+    data: {
+      datasets: [
+        {
+          label: 'Functional Medicine',
+          data: [{ x: 9.2, y: 9, r: 16 }],
+          backgroundColor: colors.success,
+          pointRadius: 18,
+          pointHoverRadius: 22
+        },
+        {
+          label: 'Conventional MD',
+          data: [{ x: 3.5, y: 5, r: 14 }],
+          backgroundColor: colors.accent,
+          pointRadius: 18,
+          pointHoverRadius: 22
+        },
+        {
+          label: 'Allied Health',
+          data: [{ x: 6, y: 7, r: 12 }],
+          backgroundColor: colors.primaryLight,
+          pointRadius: 18,
+          pointHoverRadius: 22
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          title: { display: true, text: 'Sophistication →', font: { size: 12, weight: 'bold' }, color: colors.muted },
+          min: 0, max: 10,
+          ticks: { display: false },
+          grid: { color: '#eee' }
+        },
+        y: {
+          title: { display: true, text: 'Awareness →', font: { size: 12, weight: 'bold' }, color: colors.muted },
+          min: 0, max: 10,
+          ticks: { display: false },
+          grid: { color: '#eee' }
+        }
+      },
+      plugins: {
+        legend: { position: 'bottom', labels: { usePointStyle: true, padding: 14 } },
+        tooltip: {
+          callbacks: {
+            label: (c) => c.dataset.label
+          }
+        }
+      }
+    }
+  });
+
+  // 7. Proof Hierarchy Horizontal Bar
+  new Chart(document.getElementById('proofChart'), {
+    type: 'bar',
+    data: {
+      labels: [
+        'Peer-Reviewed Clinical Trials',
+        'Expert Endorsements (MDs, NDs)',
+        'Certifications (NSF, cGMP, B-Corp)',
+        'Risk Reversal (Samples, Guarantee)'
+      ],
+      datasets: [{
+        label: 'Influence Weight',
+        data: [40, 28, 20, 12],
+        backgroundColor: [colors.primary, colors.primaryLight, colors.accent, colors.accentDark],
+        borderRadius: 4
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: { ticks: { callback: (v) => v + '%' }, grid: { color: '#eee' } },
+        y: { grid: { display: false } }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (c) => 'Relative weight: ' + c.parsed.x + '%' } }
+      }
+    }
+  });
+
+  // 8. Competitor Map
+  new Chart(document.getElementById('competitorMap'), {
+    type: 'scatter',
+    data: {
+      datasets: [
+        {
+          label: 'Metagenics',
+          data: [{ x: 7, y: 7 }],
+          backgroundColor: colors.success,
+          pointRadius: 22,
+          pointHoverRadius: 26,
+          borderColor: 'white',
+          borderWidth: 3
+        },
+        {
+          label: 'Pure Encapsulations',
+          data: [{ x: 4, y: 6.5 }],
+          backgroundColor: colors.primary,
+          pointRadius: 16,
+          pointHoverRadius: 20
+        },
+        {
+          label: 'Thorne',
+          data: [{ x: 8.5, y: 5 }],
+          backgroundColor: colors.accent,
+          pointRadius: 16,
+          pointHoverRadius: 20
+        },
+        {
+          label: 'Designs for Health',
+          data: [{ x: 9, y: 8.5 }],
+          backgroundColor: colors.primaryLight,
+          pointRadius: 16,
+          pointHoverRadius: 20
+        },
+        {
+          label: 'Xymogen',
+          data: [{ x: 5.5, y: 4 }],
+          backgroundColor: colors.danger,
+          pointRadius: 16,
+          pointHoverRadius: 20
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          title: { display: true, text: 'Clinical / Scientific Depth →', font: { size: 12, weight: 'bold' }, color: colors.muted },
+          min: 0, max: 10,
+          ticks: { display: false },
+          grid: { color: '#eee' }
+        },
+        y: {
+          title: { display: true, text: 'Practitioner-First Positioning →', font: { size: 12, weight: 'bold' }, color: colors.muted },
+          min: 0, max: 10,
+          ticks: { display: false },
+          grid: { color: '#eee' }
+        }
+      },
+      plugins: {
+        legend: { position: 'bottom', labels: { usePointStyle: true, padding: 14, font: { size: 12 } } },
+        tooltip: {
+          callbacks: {
+            label: (c) => c.dataset.label + ' · Depth: ' + c.parsed.x + ', Practitioner Focus: ' + c.parsed.y
+          }
+        }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
